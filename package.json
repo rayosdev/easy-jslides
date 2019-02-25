@@ -1,0 +1,16 @@
+{
+  "name": "easy-jslides",
+  "version": "1.0.0",
+  "description": "slides made easy",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "easy",
+    "slides",
+    "jquery"
+  ],
+  "author": "Jared Anders Isaksen",
+  "license": "ISC"
+}
