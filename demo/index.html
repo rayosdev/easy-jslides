@@ -11,12 +11,13 @@
     
     
 
-    <slide max-width="200px;;" name="bob1">
+    <slide max-width="200px;;">
         <img src="img/boat-sinking.jpg" alt="">
         <img src="img/kenedy.jpg" alt="">
         <img src="img/unicorn.jpg" alt="">
         <img src="img/war-ships.jpg" alt="">
     </slide>
+    
 
 
 
@@ -25,7 +26,7 @@
     
 
 
-    <slide max-width="100%" name="bob2">
+    <slide max-width="100%">
         <img src="img/boat-sinking.jpg" alt="">
         <img src="img/unicorn.jpg" alt="">
         <img src="img/kenedy.jpg" alt="">
@@ -38,7 +39,7 @@
     
 
 
-    <slide name="bob3">
+    <slide>
         <img src="img/boat-sinking.jpg" alt="">
         <img src="img/unicorn.jpg" alt="">
     </slide>
@@ -69,6 +70,7 @@
                         slide.imgList = []
                         $(slide).children().each( (_i, elm) => {
                             
+                            
 
                             if(elm.nodeName == "IMG"){
                                 //assign ID to all the images
@@ -90,7 +92,7 @@
                         })
                     })
                     
-                    //fixes slide width styling
+                    //fixes slide atributes and styling
                     
                     $(slides).each( (i ,slide) =>{
                         let slideWidth = $(slide).attr('max-width')
@@ -108,12 +110,43 @@
 
                         //sets inline style of the slide
                         $(slide).css("max-width", slideWidth)
+
+
+                        //gett the height
                     })
 
                     
-                    //setup slide 
-                    
-                    
+                    //setup slide behavior
+                    $(slides).each( (i ,slide) =>{
+                        
+                        slide.currentIndex = 0
+                        
+                        slide.interval = () => setTimeout( ()=> {
+                            $(slide.children[slide.currentIndex])
+                                
+                                //fadeout first images and fadein the next 
+                                .fadeOut(1000, () =>{
+                                    
+                                    slide.currentIndex++
+                                    
+                                    //when index increments higher then image list
+                                    if(slide.currentIndex > slide.imgList.length -1){
+                                        slide.currentIndex = 0
+                                    }
+
+                                    //fade in next image 
+                                    $(slide.children[slide.currentIndex]).fadeIn()
+                                    
+                                    //start next setTimout
+                                    slide.interval()
+                                }
+                            )
+                            console.log("run")
+                        }, 3000)
+                        slide.interval()
+                    })
+
+
                 }
             } 
             
@@ -130,6 +163,7 @@
             display: grid;
             grid-template-rows: 1fr;
             grid-template-columns: 1fr;
+            // overflow: hidden;
         }
 
         .ejs-slides-images{
