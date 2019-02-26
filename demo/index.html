@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>easy-jslides DEMO</title>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+    
+    
+
+    <slide max-width="200px;;" name="bob1">
+        <img src="img/boat-sinking.jpg" alt="">
+        <img src="img/kenedy.jpg" alt="">
+        <img src="img/unicorn.jpg" alt="">
+        <img src="img/war-ships.jpg" alt="">
+    </slide>
+
+
+
+
+    <div style="padding: 70px; display: block;"></div>
+    
+
+
+    <slide max-width="100%" name="bob2">
+        <img src="img/boat-sinking.jpg" alt="">
+        <img src="img/unicorn.jpg" alt="">
+        <img src="img/kenedy.jpg" alt="">
+    </slide>
+    
+
+
+
+    <div style="padding: 70px; display: block;"></div>
+    
+
+
+    <slide name="bob3">
+        <img src="img/boat-sinking.jpg" alt="">
+        <img src="img/unicorn.jpg" alt="">
+    </slide>
+
+    <style>
+        body{
+            
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function(){
+
+            $.fn.ejs = {
+                slides: $('slide'),
+
+                makeSlides: function () {
+                    let slides = $.fn.ejs.slides
+                    
+
+                    //loop through all sldie tags 
+                    //  and loop through all img children tags 
+
+                    $(slides).each( (i, slide) => {
+                        let childListLength = slide.children.length
+                        let imgID = 0
+                        slide.imgList = []
+                        $(slide).children().each( (_i, elm) => {
+                            
+
+                            if(elm.nodeName == "IMG"){
+                                //assign ID to all the images
+                                elm.ID = imgID
+
+                                //store refrence to image in the slider tag
+                                slide.imgList.push(elm)
+                                
+                                //all the imageses gets a class for styling
+                                $(elm).addClass('ejs-slides-images')
+                                
+                                //every image except the first one gets hiden
+                                elm.ID != 0 && $(elm).hide()
+
+                                imgID++
+                            }
+                            
+
+                        })
+                    })
+                    
+                    //fixes slide width styling
+                    
+                    $(slides).each( (i ,slide) =>{
+                        let slideWidth = $(slide).attr('max-width')
+                        
+                        //if no width atribute is given set the standard 
+                            //  width to be 100px
+                        if(slideWidth == false || slideWidth == undefined){slideWidth = "100px"}
+                        
+                        //gets rid of ; if there is any in the value given
+                        if(slideWidth.indexOf(';') != -1){
+                            let result = slideWidth.split('');
+                            result = result.filter(i => i != ';')
+                            slideWidth = result.join('');
+                        }
+
+                        //sets inline style of the slide
+                        $(slide).css("max-width", slideWidth)
+                    })
+
+                    
+                    //setup slide 
+                    
+                    
+                }
+            } 
+            
+            $.fn.ejs.makeSlides()
+
+        })
+
+    </script>
+
+    <style>
+
+
+        slide{
+            display: grid;
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr;
+        }
+
+        .ejs-slides-images{
+                width: 100%;
+                grid-row: 1/2;
+                grid-column: 1/2;
+            }  
+
+    </style>
+    
+    
+    <!-- <div class="test"></div>
+    
+    <style>
+        .test{
+            margin-top: 400px;
+            width: 120px;
+            height: 120px;
+            background: #555;  
+        }    
+        
+        .test:before{
+            content: "test";
+            display: block;
+            margin: 20px;
+            width: 120px;
+            height: 120px;
+            background: rgb(70, 35, 35);
+            position: relative;
+            top: 20px;
+        }
+    </style> -->
+    
+</body>
+</html>
