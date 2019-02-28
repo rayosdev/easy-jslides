@@ -11,7 +11,7 @@
     
     
 
-    <slide max-width="200px;;">
+    <slide height="200px;;">
         <img src="img/boat-sinking.jpg" alt="">
         <img src="img/kenedy.jpg" alt="">
         <img src="img/unicorn.jpg" alt="">
@@ -22,11 +22,11 @@
 
 
 
-    <div style="padding: 70px; display: block;"></div>
+    <!-- <div style="padding: 70px; display: block;"></div> -->
     
 
 
-    <slide max-width="100%">
+    <slide height="100%">
         <img src="img/boat-sinking.jpg" alt="">
         <img src="img/unicorn.jpg" alt="">
         <img src="img/kenedy.jpg" alt="">
@@ -35,7 +35,7 @@
 
 
 
-    <div style="padding: 70px; display: block;"></div>
+    <!-- <div style="padding: 70px; display: block;"></div> -->
     
 
 
@@ -61,12 +61,27 @@
                     let slides = $.fn.ejs.slides
                     
 
+                    $(slides).each( (i ,slide) =>{
+                        
+
+                        
+                        let slideParent = slide.parentElement
+                        let storeSlideForMove = $(slide).remove()
+                        let divElement = $(`<div class="ejs-slide-container">`).appendTo(slideParent)
+                        // console.log(storeSlideForMove)
+                        $(storeSlideForMove).appendTo(divElement)
+                        
+
+                        
+                    })
+
                     //loop through all sldie tags 
                     //  and loop through all img children tags 
 
                     $(slides).each( (i, slide) => {
                         let childListLength = slide.children.length
                         let imgID = 0
+                        slide.frame = {width: 0, height: 0}
                         slide.imgList = []
                         $(slide).children().each( (_i, elm) => {
                             
@@ -86,6 +101,8 @@
                                 elm.ID != 0 && $(elm).hide()
 
                                 imgID++
+
+                                // console.log("calc hight: ", slide.frame.height)
                             }
                             
 
@@ -95,26 +112,42 @@
                     //fixes slide atributes and styling
                     
                     $(slides).each( (i ,slide) =>{
-                        let slideWidth = $(slide).attr('max-width')
+                        let slideHeight = $(slide).attr('height')
                         
                         //if no width atribute is given set the standard 
-                            //  width to be 100px
-                        if(slideWidth == false || slideWidth == undefined){slideWidth = "100px"}
+                            //  heigt to be 100px
+                        if(slideHeight == false || slideHeight == undefined){slideHeight = "100px"}
                         
                         //gets rid of ; if there is any in the value given
-                        if(slideWidth.indexOf(';') != -1){
-                            let result = slideWidth.split('');
+                        if(slideHeight.indexOf(';') != -1){
+                            let result = slideHeight.split('');
                             result = result.filter(i => i != ';')
-                            slideWidth = result.join('');
+                            slideHeight = result.join('');
                         }
 
+                        
                         //sets inline style of the slide
-                        $(slide).css("max-width", slideWidth)
+                        $(slide).css("height", slideHeight)
+                        
 
+                        $(slide).children().each( (i, elm) => {
+                         // define the dimentions of the frame based 
+                            //on the biggest elemt width and height 
+                            // if(elm.naturalWidth > slide.frame.width){
+                            // slide.frame.width = elm.naturalWidth
+                            // }
 
-                        //gett the height
+                            // setTimeout( () => console.log(i, " : ", $(elm).height()), 100)
+                            // console.log(i, " : ", elm.height )
+                            // console.log("calc hight ", elm.naturalHeight)
+                            // if(elm.naturalHeight > slide.frame.height){
+                            //     slide.frame.height = elm.naturalHeight
+                            // }
+                        })
+
                     })
 
+            // --------------------------
                     
                     //setup slide behavior
                     $(slides).each( (i ,slide) =>{
@@ -158,19 +191,26 @@
 
     <style>
 
+        .ejs-slide-container{
+            background: black;
+        }
 
         slide{
             display: grid;
             grid-template-rows: 1fr;
             grid-template-columns: 1fr;
-            // overflow: hidden;
+            margin: 20px;
+            overflow: hidden;
         }
 
         .ejs-slides-images{
-                width: 100%;
-                grid-row: 1/2;
-                grid-column: 1/2;
-            }  
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            // max-height: 100%;
+            grid-row: 1/2;
+            grid-column: 1/2;
+        }  
 
     </style>
     
