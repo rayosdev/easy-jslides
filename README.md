@@ -16,10 +16,21 @@ HTML markup:
 
 simply add a `<slide>` tag with `<img>` elements or `<div>` elements as child elements. each child element will be its own card in the slide
 
-*e.g:*
+e.g:
+---
 ```
-    <slide>
-        <img src="img/boat-sinking.jpg" alt="">
-        <img src="img/unicorn.jpg" alt="">
-    </slide>
+<slide>
+    <img src="img/boat-sinking.jpg">
+    <img src="img/unicorn.jpg">
+</slide>
+```
+```
+<slide>
+    <img src="img/unicorn.jpg">
+    
+    <div class="inner-content-example">
+        <h2>Inner Content Example</h2>
+        <button>Enter</button>
+    </div>
+</slide>
 ```
