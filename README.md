@@ -7,7 +7,22 @@ Autor Jared Anders Isaksen
 Instalation of plugin
 ---
 
-To use the jCarousel component, include the jQuery library and the easy-jslides source file into your HTML document:
+To use the easy-jslide component, include the jQuery library and the easy-jslides source file into your HTML document:
+
+make sure you link the "jquery.easy-jslide.js" file and the "easy-jslide-styles.css" stylesheet to you webpage
+
+Link example:
+---
+```
+<head>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/
+    libs/jquery/1.9.1/jquery.min.js"></script>
+
+    <script src="js/jquery.easy-jslides.js"></script>
+    
+    <link rel="stylesheet" href="css/easy-jslide-styles.css">
+</head>
+```
 
 
 
@@ -16,7 +31,7 @@ HTML markup:
 
 simply add a `<slide>` tag with `<img>` elements or `<div>` elements as child elements. each child element will be its own card in the slide
 
-e.g:
+HTML example:
 ---
 ```
 <slide>
