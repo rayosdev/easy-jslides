@@ -14,6 +14,4 @@ To use the jCarousel component, include the jQuery library and the easy-jslides 
 HTML markup:
 ---
 
-<h1>QUE</h1>
-
-simply add a <slide> tag with <img> elements or <div> elements as children
+simply add a "<slide>" tag with "<img>" elements or "<div>" elements as children
