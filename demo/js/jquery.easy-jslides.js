@@ -1,12 +1,7 @@
 
-$(document).ready(function(){
-
-    $.fn.ejs = {
-        slides: $('slide'),
-
+jQuery.fn.ejs = {
         setupSlides: function () {
-            let slides = $.fn.ejs.slides
-            
+            let slides = $('slide')
 
             function makeDivContiner(i, slide){
                 let slideParent = slide.parentElement
@@ -103,7 +98,10 @@ $(document).ready(function(){
 
             function fadeCardOutIn(slide,cardOut,cardIn, nextFunction = () => {}) {
                 $(cardOut).fadeOut(slide.fadeOutTime, () => {
-                    $(cardIn).fadeIn(slide.fadeInTime, nextFunction())
+                    $(slide.cardList).each( (i, card) => $(card).hide)
+                    $(cardIn).fadeIn(slide.fadeInTime, () => {
+                        nextFunction()
+                    })
                     
                     updateCircles(slide)
                 }) 
@@ -179,7 +177,7 @@ $(document).ready(function(){
                 standardShuffle(slide)
             }
 
-
+            
             $(slides).each( (i ,slide) =>{
                 makeDivContiner(i, slide)
                 makeSlideControler(i, slide)
@@ -189,10 +187,11 @@ $(document).ready(function(){
                 setupSlideCotrntols(i, slide)
             })
 
-
-
         }
+
     } 
+
+$(document).ready(function(){
     
     $.fn.ejs.setupSlides()
 

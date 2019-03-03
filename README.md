@@ -1,5 +1,9 @@
+#easy-jslide
+
 Instalation of plugin
 
 
-Dependancys: Jquery
-install jquery by linking  
+To use the jCarousel component, include the jQuery library and the easy-jslides source file into your HTML document:
+
+
+HTML markup
