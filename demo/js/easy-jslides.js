@@ -86,66 +86,107 @@ $(document).ready(function(){
                 $(slide).parent().css("height", slideHeight)
             }
 
-            function addStartIntervalToSlide(params) {
+            function setupSlideIntervals(i, slide) {
+                slide.fadeInTime = 500
+                slide.fadeOutTime = 500
+                slide.waitTime = 10000
+                slide.index = 0
+                slide.currentCard = slide.children[slide.index] 
+
+                if(slide.children.length > 1){
+                    standardShuffle(slide)
+                }
                 
             }
+
+
+            function fadeCardOutIn(slide,cardOut,cardIn, nextFunction = () => {}) {
+                $(cardOut).fadeOut(slide.fadeOutTime, () => {
+                    $(cardIn).fadeIn(slide.fadeInTime, nextFunction())
+                    
+                    updateCircles(slide)
+                }) 
+            }
+
+            function standardShuffle(slide) {
+                clearTimeout(slide.interval)
+                slide.interval = setTimeout(() => {
+                    slide.index += 1
+                    if(slide.index >= slide.children.length){slide.index = 0} 
+                    
+                    fadeCardOutIn(slide, slide.currentCard, slide.children[slide.index], standardShuffle(slide))
+                    slide.currentCard = slide.children[slide.index]
+                }, slide.waitTime)
+            }
+
+
+            function shuffleRightLeft(slide, direction) {
+
+                clearTimeout(slide.interval)
+                slide.index += direction
+                if(slide.index > slide.children.length -1){slide.index = 0}
+                if(slide.index < 0){slide.index = slide.children.length -1}
+                
+                fadeCardOutIn(slide, slide.currentCard, slide.children[slide.index])
+                slide.currentCard = slide.children[slide.index]
+                
+                standardShuffle(slide)
+                
+            }
+
+            function updateCircles(slide) {
+                let circleContainer = slide.parentElement.children[1].children[2]
+                $(circleContainer.children).each( (i, li) =>{
+                    li.classList.remove('ejs--active-circle')
+                })
+                circleContainer.children[slide.index].classList.add('ejs--active-circle')
+            }
+
+
+            function setupSlideCotrntols(i, slide) {
+                slide.controls = slide.parentElement.children[1]
+                slide.arrowLeft  = slide.controls.children[0].children[0]
+                slide.arrowRight = slide.controls.children[1].children[0]
+                
+                
+                slide.arrowRight.addEventListener('click', e => {
+                    e.preventDefault()
+                    shuffleRightLeft(slide, +1)
+                }) 
+                slide.arrowLeft.addEventListener('click', e => {
+                    e.preventDefault()
+                    shuffleRightLeft(slide, -1)
+                })
+
+                slide.circles = slide.controls.children[2].children
+                $(slide.circles).each( (j, circle) =>{
+                    circle.addEventListener('click', e => {
+                        e.preventDefault()
+                        changeCard(slide, j)
+                    })
+                })
+            }
+
+
+            function changeCard(slide, index) {
+                clearTimeout(slide.interval)
+                
+                slide.index = index
+                fadeCardOutIn(slide, slide.currentCard, slide.children[slide.index])
+                slide.currentCard = slide.children[slide.index]
+                
+                standardShuffle(slide)
+            }
+
 
             $(slides).each( (i ,slide) =>{
                 makeDivContiner(i, slide)
                 makeSlideControler(i, slide)
                 setupSlideCards(i, slide)
                 setupSlideAtributes(i, slide)
+                setupSlideIntervals(i, slide)
+                setupSlideCotrntols(i, slide)
             })
-
-
-    // --------------------------
-            
-            //setup slide transition behavior
-            $(slides).each( (i ,slide) =>{
-    
-                slide.setupInterval = (slide, waitTime = 3000, fadeoutSpeed = 500, fadeinnSpeed = 500, indexDirection = 1, newIndex = null) => {
-                slide.interval = () => setTimeout( ()=> {
-                    $(slide.children[slide.currentIndex])
-                        
-                        //fadeout first images and fadein the next 
-                        .fadeOut(fadeoutSpeed, () =>{
-                            
-                            if(newIndex === null){
-                                slide.currentIndex += indexDirection
-                            }else{
-                                slide.currentIndex = newIndex
-                            }
-                            
-                            //when index increments higher then image list
-                            if(slide.currentIndex > slide.cardList.length -1){
-                                slide.currentIndex = 0
-                            }
-                            if(slide.currentIndex < 0){
-                                slide.currentIndex = slide.cardList.length -1
-                            }
-
-                            //fade in next image 
-                            $(slide.children[slide.currentIndex]).fadeIn()
-                            
-                            //start next setTimout
-                            slide.interval()
-                        }
-                    )
-                }, waitTime)
-                
-                slide.interval()
-            }
-
-
-                
-                slide.currentIndex = 0
-                if(slide.cardList.length == 1){return}
-                
-                slide.setupInterval(slide)
-            })
-
-
-
 
 
 

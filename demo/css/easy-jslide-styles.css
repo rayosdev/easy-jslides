@@ -88,11 +88,15 @@ slide img{
 }
 
 .ejs--slide-controls--right{
-    pointer-events: all;
 }
 .ejs--slide-controls--left{
     transform: rotate(180deg);
     justify-self: end;
+}
+.ejs--slide-controls--right a{
+    pointer-events: all;
+}
+.ejs--slide-controls--left a{
     pointer-events: all;
 }
 .ejs--slide-controls--circle-container{
