@@ -11,7 +11,7 @@ To use the easy-jslide component, include the jQuery library and the easy-jslide
 
 make sure you link the "jquery.easy-jslide.js" file and the "easy-jslide-styles.css" stylesheet to you webpage
 
-# Link example:
+### Link example:
 ```
 <head>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/
@@ -32,7 +32,7 @@ simply add a `<slide>` tag with `<img>` elements or `<div>` elements as child el
 
 
 
-# HTML example:
+### HTML example:
 ```
 <slide>
     <img src="img/boat-sinking.jpg">
