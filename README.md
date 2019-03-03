@@ -1,11 +1,11 @@
-#easy-jslide
-
+easy-jslide
+===
 
 Autor Jared Anders Isaksen
 
 
-##Instalation of plugin
-
+Instalation of plugin
+---
 
 To use the jCarousel component, include the jQuery library and the easy-jslides source file into your HTML document:
 
