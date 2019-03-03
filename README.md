@@ -11,28 +11,28 @@ To use the easy-jslide component, include the jQuery library and the easy-jslide
 
 make sure you link the "jquery.easy-jslide.js" file and the "easy-jslide-styles.css" stylesheet to you webpage
 
-Link example:
----
+# Link example:
 ```
 <head>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/
     libs/jquery/1.9.1/jquery.min.js"></script>
 
     <script src="js/jquery.easy-jslides.js"></script>
-    
+
     <link rel="stylesheet" href="css/easy-jslide-styles.css">
 </head>
 ```
 
-
+______________________
 
 HTML markup:
 ---
 
 simply add a `<slide>` tag with `<img>` elements or `<div>` elements as child elements. each child element will be its own card in the slide
 
-HTML example:
----
+
+
+# HTML example:
 ```
 <slide>
     <img src="img/boat-sinking.jpg">
