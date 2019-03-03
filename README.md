@@ -37,7 +37,7 @@ make sure you link the "jquery.easy-jslide.js" file and the "easy-jslide-styles.
 
   
 
-## HTML markup:
+### HTML markup:
 
 
   
@@ -84,7 +84,7 @@ simply add a `<slide>` tag with `<img>` elements or `<div>` elements as child el
 
 
 
-# Modifiers
+## Modifiers
 
 you can add the height attribute to the `<slide>` tag to control the height 
 ```
